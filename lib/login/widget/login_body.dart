@@ -1,3 +1,4 @@
+import 'package:debt_manager/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginBody extends StatefulWidget {
@@ -133,11 +134,11 @@ class _LoginBodyState extends State<LoginBody> {
   }
 
   void _handleSignIn() async {
-    // Navigator.pushReplacement(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => const HomeScreen(),
-    //   ),
-    // );
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomeScreen(),
+      ),
+    );
   }
 }
