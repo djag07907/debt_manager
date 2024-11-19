@@ -1,3 +1,4 @@
+import 'package:debt_manager/login/login_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileBody extends StatelessWidget {
@@ -39,25 +40,31 @@ class ProfileBody extends StatelessWidget {
             ),
             const SizedBox(height: 32),
             _buildProfileItem(
+              context: context,
               icon: Icons.person_outline,
               title: 'Personal Information',
             ),
             _buildProfileItem(
+              context: context,
               icon: Icons.notifications_outlined,
               title: 'Notifications',
             ),
             _buildProfileItem(
+              context: context,
               icon: Icons.security_outlined,
               title: 'Security',
             ),
             _buildProfileItem(
+              context: context,
               icon: Icons.help_outline,
               title: 'Help & Support',
             ),
             _buildProfileItem(
+              context: context,
               icon: Icons.logout,
               title: 'Logout',
               textColor: Colors.red,
+              isLogout: true,
             ),
           ],
         ),
@@ -66,9 +73,11 @@ class ProfileBody extends StatelessWidget {
   }
 
   Widget _buildProfileItem({
+    required BuildContext context,
     required IconData icon,
     required String title,
     Color? textColor,
+    bool isLogout = false,
   }) {
     return ListTile(
       leading: Icon(icon, color: textColor ?? const Color(0xFF2C37C6)),
@@ -77,7 +86,17 @@ class ProfileBody extends StatelessWidget {
         style: TextStyle(color: textColor),
       ),
       trailing: const Icon(Icons.chevron_right),
-      onTap: () {},
+      onTap: () {
+        if (isLogout) {
+          // Handle logout
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginScreen(),
+            ),
+          );
+        }
+      },
     );
   }
 }

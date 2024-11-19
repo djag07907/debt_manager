@@ -1,3 +1,7 @@
+import 'package:debt_manager/debtDetail/debt_detail_screen.dart';
+import 'package:debt_manager/debtRegistration/debt_registration_screen.dart';
+import 'package:debt_manager/debts/models/bill_model.dart';
+import 'package:debt_manager/debts/models/debt_model.dart';
 import 'package:flutter/material.dart';
 
 class DebtsBody extends StatelessWidget {
@@ -6,17 +10,31 @@ class DebtsBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Mock data for debts
-    final List<Map<String, dynamic>> debts = [
-      {
-        'name': 'Home Loan',
-        'amount': 250000,
-        'dueDate': '2024-12-31',
-      },
-      {
-        'name': 'Car Loan',
-        'amount': 35000,
-        'dueDate': '2024-06-30',
-      },
+    final List<Debt> debts = [
+      Debt(
+        affair: 'Home Loan',
+        bills: [
+          Bill(
+            description: 'First payment',
+            cost: 250000,
+            debtors: [],
+            dueDate: DateTime(2024, 12, 31),
+          ),
+        ],
+        createdAt: DateTime.now(),
+      ),
+      Debt(
+        affair: 'Car Loan',
+        bills: [
+          Bill(
+            description: 'First payment',
+            cost: 35000,
+            debtors: [],
+            dueDate: DateTime(2024, 6, 30),
+          ),
+        ],
+        createdAt: DateTime.now(),
+      ),
     ];
 
     return Scaffold(
@@ -53,14 +71,21 @@ class DebtsBody extends StatelessWidget {
                     vertical: 8.0,
                   ),
                   child: ListTile(
-                    title: Text(debt['name']),
-                    subtitle: Text('Due: ${debt['dueDate']}'),
-                    trailing: Text(
-                      '\$${debt['amount']}',
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF2C37C6),
-                      ),
+                    title: Text(debt.affair),
+                    subtitle: Text(
+                      'Total Amount: \$${debt.totalAmount.toStringAsFixed(2)}\n'
+                      'Bills: ${debt.bills.length}',
+                    ),
+                    trailing: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DebtDetailScreen(debt: debt),
+                          ),
+                        );
+                      },
+                      child: const Text('See Debt'),
                     ),
                   ),
                 );
@@ -70,7 +95,14 @@ class DebtsBody extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DebtRegistrationScreen(),
+            ),
+          );
+        },
         backgroundColor: const Color(0xFF2C37C6),
         child: const Icon(Icons.add),
       ),

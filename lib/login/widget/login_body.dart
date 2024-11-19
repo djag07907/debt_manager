@@ -1,4 +1,5 @@
 import 'package:debt_manager/home/home_screen.dart';
+import 'package:debt_manager/register/register_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginBody extends StatefulWidget {
@@ -87,6 +88,21 @@ class _LoginBodyState extends State<LoginBody> {
                         onPressed: () {},
                         child: const Text(
                           'Forgot Password?',
+                          style: TextStyle(color: Color(0xFF2C37C6)),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RegisterScreen(),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          'Register',
                           style: TextStyle(color: Color(0xFF2C37C6)),
                         ),
                       ),
